@@ -1,0 +1,45 @@
+package ejercicios;
+
+import java.io.File;
+
+public class Ejercicio_01 {
+
+	public static void main(String[] args) {
+	
+		try {
+
+			// Declaración de variables
+
+			       String directorio = "C:/Users/ikloerzer/";
+			       String dir1 = "AD";
+			       String varios=" UA01/UA02/UA03";
+			       String ficheros1="EJ01/EJ02/EJ03";
+			       String ficheros2="EJ01";
+
+
+			// Crear un directorio y hacemos un booleano. 
+
+			      File ruta = new File(directorio, dir1);
+			  
+			      boolean creado= ruta.mkdir();
+			       
+			     //Si se crea bien, hacemos el siguiente directorio.
+			      if (creado) {
+			    	  
+			    	  //El primer parámetro indica dónde me lo estoy creando
+			    	   
+			      }
+			    	  
+			       
+
+	 	  
+		
+			}catch (Exception e){
+
+			      System.err.println("Error: " + e.getMessage());
+
+			}
+
+	}
+
+}

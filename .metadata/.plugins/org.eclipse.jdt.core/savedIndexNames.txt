@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\ikloerzer\Documents\GitHub\AD\.metadata\.plugins\org.eclipse.jdt.core
+905222589.index
+2008147974.index
+1865797976.index
