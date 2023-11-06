@@ -103,8 +103,7 @@ public class Ejercicio02 {
 	public static void creaHTML (String directorio, String nomCarpeta) {
 		
 		//Variables
-		String html=".html";
-		File fichero= new File(directorio,nomCarpeta+html);
+		File fichero= new File(directorio,"index.html");
 		String autor="Isabel Katharina Loerzer";
 		
 		try {
