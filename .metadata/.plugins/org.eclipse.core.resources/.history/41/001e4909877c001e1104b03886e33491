@@ -42,7 +42,7 @@ public class Ejercicio02 {
 		    	directorio = directorioOG+"/"+datos[0];
 	    		
 		    	//Llamamos a la función del html.
-			    creaHTML(directorio, nomCarpeta);
+			    System.out.println(creaHTML(directorio, nomCarpeta));
 			    
 			  //Pasamos a la siguiente línea.
 		    	linea= br.readLine();
@@ -51,32 +51,29 @@ public class Ejercicio02 {
 
 			    	//Guardamos la linea separada en una variable array.
 			    	datos= linea.split("/");
-			    			    	
+			    	
 			    	//Guardamos el valor de la última posición.
 			    	dato=datos[datos.length-1];
 			    	
-			    	directorio = directorioOG+"/"+linea;
+			    	nomCarpeta=dato;
+			    	
+			    	directorio = directorioOG+"/"+datos[0];
 		    		
+			 
 			    	if (datos.length==2) {
-			    		nomCarpeta=dato;
+			    		nomCarpeta=datos[datos.length-1];
+				    	
+				    	directorio = directorioOG+"/"+datos[0];
 			    		
 				    	//Llamamos a la función del html.
 					    creaHTML(directorio, nomCarpeta);
-					    
 			    		//Machacamos la ubicación
 			    		directorio=directorioOG;
 			    	
 			    	} else if (datos.length==3) {
 			    		
-			    		nomCarpeta=dato;
+			    		directorio = directorioOG+"/"+datos[0]+"/"+datos[1];
 			    		
-			
-			    		
-			    		//Llamamos a la función del html.
-					    creaHTML(directorio, nomCarpeta);
-					    
-			    		//Machacamos la ubicación
-			    		directorio=directorioOG;
 			    		
 			    	}
 			    	
@@ -93,18 +90,13 @@ public class Ejercicio02 {
 
 	}
 	
-	/**
-	 * Método que crea los html.
-	 * 
-	 * @param directorio la ruta en la que sea crea el html.
-	 * @param nomCarpeta el nombre que va a tener de titulo el html
-	 */
-	
-	public static void creaHTML (String directorio, String nomCarpeta) {
+	public static boolean creaHTML (String directorio, String nomCarpeta) {
 		
 		//Variables
 		File fichero= new File(directorio,"index.html");
 		String autor="Isabel Katharina Loerzer";
+		String title="index";
+		boolean creado=false;
 		
 		try {
 			
@@ -122,7 +114,7 @@ public class Ejercicio02 {
 				bw.write("<head>");
 				bw.newLine();
 				
-				bw.write("<title>"+nomCarpeta+"</title>");
+				bw.write("<title>"+title+"</title>");
 				bw.newLine();
 				
 				bw.write("</head>");
@@ -146,6 +138,8 @@ public class Ejercicio02 {
 				//Guardamos
 				bw.flush();
 				
+				//Confirmamos
+				creado=true;
 			}
 			
 			
@@ -153,7 +147,13 @@ public class Ejercicio02 {
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-			
+		return creado;
+		
+		
+		
+		
+		
+		
 	}
 
 }

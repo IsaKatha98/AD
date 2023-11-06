@@ -31,52 +31,37 @@ public class Ejercicio02 {
 			    //lee la primera línea
 			    linea=br.readLine();
 			    
-			  //Guardamos la linea separada en una variable array.
-		    	String [] datos= linea.split("/");
-		    	
-		    	//Guardamos el valor de la última posición.
-		    	String dato=datos[datos.length-1];
-		    	
-		    	nomCarpeta=dato;
-		    	
-		    	directorio = directorioOG+"/"+datos[0];
-	    		
-		    	//Llamamos a la función del html.
-			    creaHTML(directorio, nomCarpeta);
-			    
-			  //Pasamos a la siguiente línea.
-		    	linea= br.readLine();
 			     
 			    while (linea!=null) {
 
 			    	//Guardamos la linea separada en una variable array.
-			    	datos= linea.split("/");
-			    			    	
-			    	//Guardamos el valor de la última posición.
-			    	dato=datos[datos.length-1];
+			    	String [] datos= linea.split("/");
 			    	
-			    	directorio = directorioOG+"/"+linea;
+			    	//Guardamos el valor de la última posición.
+			    	String dato=datos[datos.length-1];
+			    	
+			    	nomCarpeta=dato;
+			    	
+			    	directorio = directorioOG+"/"+dato;
+		    		
+			    	//Llamamos a la función del html.
+				    System.out.println(creaHTML(directorio, nomCarpeta));
+				    
 		    		
 			    	if (datos.length==2) {
-			    		nomCarpeta=dato;
+			    		nomCarpeta=datos[datos.length-1];
+				    	
+				    	directorio = directorioOG+"/"+datos[0];
 			    		
 				    	//Llamamos a la función del html.
 					    creaHTML(directorio, nomCarpeta);
-					    
 			    		//Machacamos la ubicación
 			    		directorio=directorioOG;
 			    	
 			    	} else if (datos.length==3) {
 			    		
-			    		nomCarpeta=dato;
+			    		directorio = directorioOG+"/"+datos[0]+"/"+datos[1];
 			    		
-			
-			    		
-			    		//Llamamos a la función del html.
-					    creaHTML(directorio, nomCarpeta);
-					    
-			    		//Machacamos la ubicación
-			    		directorio=directorioOG;
 			    		
 			    	}
 			    	
@@ -93,18 +78,13 @@ public class Ejercicio02 {
 
 	}
 	
-	/**
-	 * Método que crea los html.
-	 * 
-	 * @param directorio la ruta en la que sea crea el html.
-	 * @param nomCarpeta el nombre que va a tener de titulo el html
-	 */
-	
-	public static void creaHTML (String directorio, String nomCarpeta) {
+	public static boolean creaHTML (String directorio, String nomCarpeta) {
 		
 		//Variables
 		File fichero= new File(directorio,"index.html");
 		String autor="Isabel Katharina Loerzer";
+		String title="index";
+		boolean creado=false;
 		
 		try {
 			
@@ -122,7 +102,7 @@ public class Ejercicio02 {
 				bw.write("<head>");
 				bw.newLine();
 				
-				bw.write("<title>"+nomCarpeta+"</title>");
+				bw.write("<title>"+title+"</title>");
 				bw.newLine();
 				
 				bw.write("</head>");
@@ -146,14 +126,21 @@ public class Ejercicio02 {
 				//Guardamos
 				bw.flush();
 				
+				//Confirmamos
+				creado=true;
 			}
 			
-			
+			return creado;
 				
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-			
+		
+		
+		
+		
+		
+		
 	}
 
 }
