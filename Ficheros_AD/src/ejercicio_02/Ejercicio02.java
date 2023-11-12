@@ -24,7 +24,7 @@ public class Ejercicio02 {
 			  
 			  //Nos creamos un búfer que lea el fichero carpetas.
 			    
-			    BufferedReader  br= new BufferedReader (new FileReader("C:\\Users\\ikloerzer\\Documents\\GitHub\\AD\\Ficheros_AD\\src\\ejercicio_02\\carpetas.txt"));
+			    BufferedReader  br= new BufferedReader (new FileReader("../ejercicio_02/carpetas.txt"));
 			    String linea;
 			    
 			    
