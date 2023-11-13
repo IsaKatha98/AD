@@ -1,0 +1,78 @@
+package ejercicio04;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Ejercicio04 {
+	
+	public static void main(String[] args) {
+	
+	try {
+		
+		//Declaración de variables 
+		String linea="";
+		ArrayList <String> palabras= new ArrayList();
+		
+		//Nos creamos un búfer que lea el fichero.
+	    BufferedReader  br= new BufferedReader (new FileReader("src/ficheroSecuencial/"));
+	 
+	    while (linea!=null) {
+	    	
+	    	//lee la primera línea
+		    linea=br.readLine();
+		    
+		    //Guardamos en la lista.
+		    palabras.add(linea);
+		    
+		    //Leeemos la siguiente linea
+		    linea=br.readLine();
+	    }
+	    
+	    //Ordenamos la lista.
+	    Collections.sort(palabras);
+	    
+	    //Asignamos el nombre del fichero.
+	   File archivo= new File ("palabrasOrdenadas.txt");
+	   
+	   //Comprobamos que existe.
+	   if (!archivo.exists()) {
+		   
+		   //Si no existe, lo creamos.
+		   archivo.createNewFile();
+		   
+	   }
+	    
+	  //Creamos un búfer de escritura.
+	  BufferedWriter  bw= new BufferedWriter (new FileWriter("src/ejercicio04"));
+	  
+	  //Hacemos un for-each.
+	 for (String palabra:palabras) {
+		 
+		 //Vamos escribiendo palabra por palabra-
+		 bw.write(palabra);
+		 bw.newLine();	
+		 
+	 }
+	 
+	 //Guardamos.
+	 bw.flush();
+	 
+		//Cerramos todo.
+		br.close();
+		bw.close();
+	 
+
+	  	    
+	}catch (Exception e){
+
+	      System.err.println("Error: " + e.getMessage());
+
+	}
+	
+	}
+}
