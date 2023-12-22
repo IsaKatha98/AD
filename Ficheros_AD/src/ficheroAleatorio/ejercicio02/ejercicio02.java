@@ -19,7 +19,6 @@ public class ejercicio02 {
         try {
 
             File lectura=  new File ("Ficheros_AD/src/ficheroAleatorio/ejercicio02/lectura.txt");
-
             RandomAccessFile ficheroLectura= new RandomAccessFile (lectura, "r");
 
             String linea="";

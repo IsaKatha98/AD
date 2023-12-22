@@ -16,82 +16,27 @@ public class ejercicio03 {
         //Accedemos al fichero.
         try {
 
-            File lectura=  new File ("Ficheros_AD/src/ficheroAleatorio/ejercicio03/lectura.txt");
+            RandomAccessFile ficheroLectura= new RandomAccessFile ("src/ficheroAleatorio/ejercicio03/lectura.txt", "r");
 
-            RandomAccessFile ficheroLectura= new RandomAccessFile (lectura, "r");
-
-            String linea="";
-            String aux="";
-
-            //Colocamos el puntero en el principio del fichero.
-            ficheroLectura.seek(0);
-
-              //Abrimos un fichero de escritura
-            File escritura= new File("Ficheros_AD/src/ficheroAleatorio/ejercicio03/escritura.txt");
-            RandomAccessFile ficheroEscritura= new RandomAccessFile(escritura, "rw");
+            RandomAccessFile ficheroEscritura= new RandomAccessFile("escritura", "rw");
             
-            //nos situamos al final del fichero.
-            ficheroEscritura.seek(ficheroEscritura.length());
+            String caracteres;
+           for (int i=(int)ficheroLectura.length()-1; i>=0; i-=4){
 
-            //leemos la primera linea.
-            linea=ficheroLectura.readLine();
-
-            //Recorremos el fichero.
-            while (linea!=null){
-
-                aux+=linea;
-                //Pasamos a la siguiente línea
-                 linea=ficheroLectura.readLine();    
-            }
+            ficheroLectura.seek(i);
+            caracteres=ficheroLectura.readLine();
+            ficheroEscritura.writeChars(caracteres+"\n");
+          }
 
             //cerramos el fichero.
             ficheroLectura.close();
+            ficheroEscritura.close();
 
-            //Llamamos al método escribefichero.
-            escribeFichero(aux, ficheroEscritura);
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-   
-
-    }
-
-    /**
-     * Función que escribe de forma inversa en un fichero.
-     * @param linea
-     */
-
-     private static void escribeFichero(String aux, RandomAccessFile ficheroEscritura){
-
-        //Escribimos en el fichero.
-        try {
-
-            char reverse;
-            String invertido="";
-            //Recorremos el aux del reves.
-            for (int i=aux.length()-1; i>=0; i--){
-
-                reverse= aux.charAt(i);
-                //Casteamos a string.
-                invertido=""+reverse;
-
-               //Escribimos el reverse en el fichero.
-               ficheroEscritura.writeChars(invertido);
-
-            }
-            
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-
      }
     
 }
