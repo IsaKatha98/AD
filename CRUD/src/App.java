@@ -119,16 +119,43 @@ public class App {
                 }
 			}
 
-			case 4-> {
+			case 4: {
 				
 				sc.nextLine();
-				System.out.println("¿Quiere guardar la agenda?");
-				respuesta= sc.nextLine();
+				System.out.println("Introduzca si quiere modificar un usuario o un post:");
+				String respuesta= sc.nextLine();
 				
-				if (respuesta.equalsIgnoreCase("si")) {
+				if (respuesta.equalsIgnoreCase("usuario")) {
 					
-					//Llamamos a la función de guardar.
-					Utils.guardar();
+					sc.nextLine();
+				    System.out.println("¿Quuiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
+				    respuesta= sc.nextLine();
+					
+                    switch (respuesta){
+
+                        case "nombre": {
+                            
+                            ModificarDatos.modificaUsuario(nombre);
+                        }
+
+                        case "apellidos":{
+
+                            ModificarDatos.modificaUsuario(apellidos);
+                        }
+
+                        case "nombre de usuario":{
+                            ModificarDatos.modificaUsuario(userName);
+
+                        }
+
+                        case "contraseña":{
+                            ModificarDatos.modificaUsuario(password);
+                        }
+
+                        case "correo": {
+                            ModificarDatos.modificaUsuario(email);
+                        }
+                    }
 					
 				}
 				
