@@ -13,7 +13,6 @@ public class App {
 		
 		//Creamos las variables necesarias.
 		int opcion;
-        String nombreTabla;
 
 		System.out.println("Bienvenido/a al gestor de su base de datos.");
 		
@@ -29,24 +28,18 @@ public class App {
 
 			// Hacemos un switch.
 			switch (opcion) {
-
-			case 1: {
-				
-				//Pedimos los datos.
-				sc.nextLine();
-
-                //Llamamos a la función que establece la conexión.
-                Conection.establishConection();
-            }
             
             //TODO: el usuario debe poder crear tablas.
-            case 2:{
+            case 1:{
 
                     //llamamos a la función de crear tablas.
+                    //Hay que comprobar que las tablas ya existen o no.
+
+                break;
             }
 			
 			
-			case 3: {
+			case 2: {
 				
 				System.out.println("Indique tipo de dato quiere insertar o si quiere dar like:");
                 var data= sc.nextLine();
@@ -117,9 +110,11 @@ public class App {
                 
     
                 }
+
+                break;
 			}
 
-			case 4: {
+			case 3: {
 				
 				sc.nextLine();
 				System.out.println("Introduzca si quiere modificar un usuario o un post:");
@@ -128,52 +123,120 @@ public class App {
 				if (respuesta.equalsIgnoreCase("usuario")) {
 					
 					sc.nextLine();
-				    System.out.println("¿Quuiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
-				    respuesta= sc.nextLine();
+				    System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
+				    String res= sc.nextLine();
+
+                    //Llamamos a la función 
+                    ModificarDatos.modificaUsuario(res);
 					
-                    switch (respuesta){
-
-                        case "nombre": {
-                            
-                            ModificarDatos.modificaUsuario(nombre);
-                        }
-
-                        case "apellidos":{
-
-                            ModificarDatos.modificaUsuario(apellidos);
-                        }
-
-                        case "nombre de usuario":{
-                            ModificarDatos.modificaUsuario(userName);
-
-                        }
-
-                        case "contraseña":{
-                            ModificarDatos.modificaUsuario(password);
-                        }
-
-                        case "correo": {
-                            ModificarDatos.modificaUsuario(email);
-                        }
-                    }
 					
-				}
-				
-				// salir
-				System.out.println("Ha salido del programa.");
+				} else if (respuesta.equalsIgnoreCase("post")) {
+
+                    sc.nextLine();
+				    System.out.println("Introduzca el post que quiere modificar");
+				    int idPost= sc.nextInt();
+
+                    sc.nextLine();
+				    System.out.println("Introduzca el nuevo user:");
+				    String userName= sc.nextLine();
+					
+                    //LLamamos a la función.
+                    ModificarDatos.modificaPost(idPost, userName);
+                
+                }	
+                
+                break;
 				
 			}
 
-			default -> {
+            case 4: {
+                sc.nextLine();
+                System.out.println("Introduzca el dato a listar:");
+				String respuesta= sc.nextLine();
+
+                switch (respuesta) {
+                    case "usuarios": {
+                        
+                        //Llamar a la función de listar usuarios.
+                        ListarDatos.listaUsuarios();
+                    }
+                    case "posts": {
+                        //Llamar a la función de listar posts.
+                        ListarDatos.listaPosts();
+                    }
+
+                    case "likes": {
+                        //Llamar a la función de listar likes.
+                        ListarDatos.listaLikes();
+                    }                      
+                }
+
+                break;
+
+            }
+
+            case 5: {
+                sc.nextLine();
+                System.out.println("Introduzca el dato a borrar:");
+				String respuesta= sc.nextLine();
+
+                switch (respuesta) {
+                    case "usuario": {
+                        sc.nextLine();
+                        System.out.println("Indique el user a borrar:");
+                        String userName= sc.nextLine();
+
+                        BorrarDatos.borraUsuario(userName);
+                       
+                    }
+                    case "post": {
+                        sc.nextLine();
+                        System.out.println("Indique el id del post a borrar:");
+                        int idPost= sc.nextInt();
+
+                        BorrarDatos.borraPost(idPost);
+
+                    }
+
+                    case "like": {
+                      
+                        sc.nextLine();
+                        System.out.println("Indique el id del post:");
+                        int idPost= sc.nextInt();
+                        sc.nextLine();
+                        System.out.println("Indique el user:");
+                        String userName= sc.nextLine();
+
+                        BorrarDatos.borraLike(idPost, userName);
+                    }                      
+                }
+
+                break;
+            }
+
+            case 6: {
+               
+                // salir
+				System.out.println("Ha salido del programa.");
+                break;
+            }
+
+
+
+			default: {
 
 				System.err.println("Opción introducida incorrecta");
+                break;
 			}
 			}
 			
 			System.out.println();
 
-		} while (opcion != 4);
+		} while (opcion != 7);
+
+        //Cerramos el escáner.
+        sc.close();
 
 	}
+
     }
-}

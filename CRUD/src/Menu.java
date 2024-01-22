@@ -6,13 +6,13 @@ public class Menu {
 	public static void menu() {
 
 		System.out.println(
-				 "\n===================" + "\n1. Establecer conexión" 
-                 + "\n2. Crear tablas" 
-                 + "\n3. Insertar datos"
+				 "\n===================" 
+                 + "\n1. Crear tablas" 
+                 + "\n2. Insertar datos"
+                 +"\n3. Modificar datos"
                  +"\n4. Listar datos"
-                 +"\n5. Modificar datos"
-                 +"\n6. Borrar datos"
-                 +"\n7. Salir");
+                 +"\n5. Borrar datos"
+                 +"\n6. Salir");
 
 	}
 }
