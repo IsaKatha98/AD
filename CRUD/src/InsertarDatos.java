@@ -1,71 +1,114 @@
+import java.sql.*;
+
 public class InsertarDatos {
 
-    public static int buscaId (String nombreTabla) {
-
-        int ultimoId;
-
-
-        return ultimoId;
-        
-    }
-
-    public static boolean insertaUsuarios (String nombre, String apellidos, String userName, String password, String email) {
+    public static boolean insertaUsuarios (String nombre, String apellidos, String userName, String password, String email) throws SQLException {
 
         boolean userCreado= false;
 
-       
+        Connection conn = null;
+        Statement stmt = null;
 
-        //Llamamos a la función del id.
-        String nombreTabla="Usuarios";
-        int idUsuario=buscaId(nombreTabla);
-
-         //aquí pues toda la pesca del SQL.
-
+        try {
+            //Paso 1.Previamente habremos realizado la conexión
+            conn = Conection.establishConection();
+            //Paso 2. Creamos un nuevo objeto con la conexión
+            stmt = conn.createStatement();
+            //Paso 3. Definimos la sentencia de crear una nueva base de datos
+            String sql = "insert into Usuarios (nombre, apellidos, username, password, email) values"
+            + "("+nombre+","+apellidos+","+userName+","+password+","+email+")"; 
+            
+            userCreado=true;
+            //Paso 4. Ejecutar la sentencia
+            stmt.executeUpdate(sql);
+        }catch(SQLException se){
+            //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+            se.printStackTrace();
+        }catch(Exception e){
+            //Gestionamos los posibles errores
+            e.printStackTrace();
+        }finally{
+            //Paso 5. Cerrar el objeto en uso y la conexión
+            stmt.close();
+            conn.close();
+        }
 
          return userCreado;
-
-        
-
-        
     }
 
-    public static boolean insertaPost (String nombre) {
+    public static boolean insertaPost (String userName) throws SQLException {
 
         boolean postCreado=false;
 
-        //TODO: hay que buscar el id asociado a ese nombre.
-        int idUsuario;
+        Connection conn = null;
+        Statement stmt = null;
 
-        //Si se valida pues se genera el post 
-        String nombreTabla="Posts";
-        int idPost= buscaId(nombreTabla);
+        try {
+            //Paso 1.Previamente habremos realizado la conexión
+            conn = Conection.establishConection();
+            //Paso 2. Creamos un nuevo objeto con la conexión
+            stmt = conn.createStatement();
+            //Buscamos el id del usuario según ese username.
+            PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username="+userName);
+            ResultSet resIdUsuario= s.executeQuery();
 
-        Date created_at;
-        Date updated_at; 
-        //Estos dos se hacen con un timestamp entiendo.
-
+            String sql = "insert into Posts (idUsuario, created_at, updated_at) values"
+            + "("+resIdUsuario.getInt("idUsuario")+", now(), now())"; 
+            
+            postCreado=true;
+            //Paso 4. Ejecutar la sentencia
+            stmt.executeUpdate(sql);
+        }catch(SQLException se){
+            //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+            se.printStackTrace();
+        }catch(Exception e){
+            //Gestionamos los posibles errores
+            e.printStackTrace();
+        }finally{
+            //Paso 5. Cerrar el objeto en uso y la conexión
+            stmt.close();
+            conn.close();
+        }
         
         return postCreado;
     }
 
-    public static boolean darLike (String nombre, int idPost ) {
+    public static boolean darLike (String userName, int idPost ) throws SQLException {
 
         boolean mg= false;
 
-          //TODO: hay que buscar el id asociado a ese nombre.
-          int idUsuario;
+        Connection conn = null;
+        Statement stmt = null;
 
-          //TODO: hay que comprobar que idPsot existe en la tabla posts.
-          boolean postExiste= false;
+        try {
+            //Paso 1.Previamente habremos realizado la conexión
+            conn = Conection.establishConection();
+            //Paso 2. Creamos un nuevo objeto con la conexión
+            stmt = conn.createStatement();
+            //Buscamos el id del usuario según ese username.
+            PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username="+userName);
+            ResultSet resIdUsuario= s.executeQuery();
 
-          //Si el post existe pues se genera un insert en la tabla likes.
-          if (postExiste) {
+            String sql = "insert into Likes (idUsuario, idPost) values"
+            + "("+resIdUsuario.getInt("idUsuario")+", idPost)"; 
+            
+            mg=true;
+            //Paso 4. Ejecutar la sentencia
+            stmt.executeUpdate(sql);
+        }catch(SQLException se){
+            //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+            se.printStackTrace();
+        }catch(Exception e){
+            //Gestionamos los posibles errores
+            e.printStackTrace();
+        }finally{
+            //Paso 5. Cerrar el objeto en uso y la conexión
+            stmt.close();
+            conn.close();
+        }
 
-            //Buscamos el id del like.
-            String nombreTabla="Likes";
-            int idLike= buscaId(nombreTabla);
-
-          }
+         
+          
 
           return mg;
 

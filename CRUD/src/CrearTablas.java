@@ -15,24 +15,24 @@ public class CrearTablas {
             stmt = conn.createStatement();
             //Paso 3. Definimos la sentencia de crear una nueva base de datos
             String sql = "create table Usuarios ("
-                +"idUsuario int primary key,"
+                +"idUsuario int auto_increment primary key,"
                 +"nombre varchar(45),"
                 +"apellidos varchar (45),"
                 +"username varchar(12),"
                 +"password varchar(128),"
                 +"email varchar(50))"
                 +"create table Posts ("
-                +"idPost int primary key,"
+                +"idPost int auto_increment primary key,"
                 +"idusuario int,"
                 +"created_at Date default current_timestamp,"
                 +"updated_at Date default current_timestamp,"
-                +"foreign key(idUsuario) references Usuarios(idUsuario))"
+                +"foreign key(idUsuario) references Usuarios(idUsuario)) on delete cascade"
                 +"create table Likes ("
-                +"idLike int primary key,"
+                +"idLike int auto_increment primary key,"
                 +"idUsuario int,"
                 +"idPost int,"
-                +"foreign key (idUsuario) references Usuarios(idUsuario),"
-                +"foreign key (idPost) references Posts(idPost))";
+                +"foreign key (idUsuario) references Usuarios(idUsuario) on delete cascade,"
+                +"foreign key (idPost) references Posts(idPost)) on delete cascade";
 
                 
             //Paso 4. Ejecutar la sentencia

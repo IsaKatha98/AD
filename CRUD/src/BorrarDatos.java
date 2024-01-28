@@ -1,29 +1,90 @@
+import java.sql.*;
+
 public class BorrarDatos {
-    public static void borraUsuario(String userName) {
+    public static void borraUsuario(String userName) throws SQLException {
 
-        //Hay que comprobar que ese user tiene un id asociado.
+        Connection conn = null;
+        Statement stmt = null;
 
-        //Hay que borrar todos los posts asociados a ese id.
+        try {
+            
+            conn = Conection.establishConection();
+            stmt = conn.createStatement();
+                    
+            String sql = "delete from Usuarios  where username="+userName;              
+                    
+            stmt.executeUpdate(sql);
 
+        }catch(SQLException se){
+            //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+            se.printStackTrace();
+        }catch(Exception e){
+            //Gestionamos los posibles errores
+            e.printStackTrace();
+        }finally{
+                    
+            stmt.close();
+            conn.close();
+        }                
+               
     }
 
-        public static void borraPost (int idPost) {
+    public static void borraPost (int idPost) throws SQLException {
 
-//Hay que comprobar que ese idPost existe.
+    Connection conn = null;
+    Statement stmt = null;
 
+    try {
+        
+        conn = Conection.establishConection();
+        stmt = conn.createStatement();
+                
+        String sql = "delete from Posts  where idPost="+idPost;              
+                
+        stmt.executeUpdate(sql);
 
+    }catch(SQLException se){
+        //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+        se.printStackTrace();
+    }catch(Exception e){
+        //Gestionamos los posibles errores
+        e.printStackTrace();
+    }finally{
+                
+        stmt.close();
+        conn.close();
+    }                
+
+    }
     
-    
-    
-        }
-    
-        public static void borraLike(int idPost, String userName) {
+    public static void borraLike(int idPost, String userName) throws SQLException {
 
-            //Se busca el id del usuario.
-
-
+        Connection conn = null;
+        Statement stmt = null;
+    
+        try {
             
-            //Se busca en la tabla like por el idPost y id del usuario.
+            conn = Conection.establishConection();
+            stmt = conn.createStatement();
+
+            String sql = "delete from Likes where idPost="+idPost+"and idUsuario= (select idUsuario from Usuarios where username"+userName+")";              
+                    
+            stmt.executeUpdate(sql);
     
-        }
+        }catch(SQLException se){
+            //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
+            se.printStackTrace();
+        }catch(Exception e){
+            //Gestionamos los posibles errores
+            e.printStackTrace();
+        }finally{
+                    
+            stmt.close();
+            conn.close();
+        }                
+    
+
+        
+    
+    }
 }

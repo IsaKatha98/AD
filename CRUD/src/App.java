@@ -1,11 +1,10 @@
+
+
+
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-       
-        String conn= Conection.establishConection();
-
-        System.out.println(conn);
 
         //Aquí empieza el crud
         // Creamos un escáner y los búferes necesarios.
@@ -32,9 +31,16 @@ public class App {
             //TODO: el usuario debe poder crear tablas.
             case 1:{
 
-                    //llamamos a la función de crear tablas.
-                    //Hay que comprobar que las tablas ya existen o no.
+                try{
 
+                    //llamamos a la función de crear tablas.
+                    CrearTablas.crear();
+
+                } catch (Exception ex1) {
+
+                    System.err.println("Las tablas ya han sido creadas anteriormente.");
+
+                }
                 break;
             }
 			
@@ -58,6 +64,7 @@ public class App {
                         System.out.println("Email: ");
                         String email= sc.nextLine(); //TODO: tenemos que comprobar que es un correo???
 
+                        try{
                         //Llamamos a la función.
                         boolean userCreado= InsertarDatos.insertaUsuarios(nombre, apellidos, userName, password, email);
 
@@ -67,6 +74,10 @@ public class App {
                         } else {
                             System.out.println("No se ha podido crear el usuario.");
                         }
+                    } catch (Exception ex) {
+                        System.err.println("Ha ocurrido un error.");
+                    }
+
 
                     }
 
@@ -74,10 +85,11 @@ public class App {
 
                         //TODO: pedimos el nombre y buscamos en la lista el idUsuario asociado o cómo????
                         System.out.println("Introduzca el nombre del usuario: ");
-                        String nombre= sc.nextLine();
+                        String userName= sc.nextLine();
 
+                        try{
                         //Llamamos a la función.
-                        boolean postCreado=InsertarDatos.insertaPost(nombre);
+                        boolean postCreado=InsertarDatos.insertaPost(userName);
 
                         if (postCreado) {
                             System.out.println("Se ha creado el post.");
@@ -85,6 +97,9 @@ public class App {
                         } else {
                             System.out.println("No se ha podido crear post.");
                         }
+                    } catch (Exception ex) {
+                        System.err.println("Ha ocurrido un error.");
+                    }
 
                     }
 
@@ -95,7 +110,7 @@ public class App {
                         System.out.println("Introduzca el id del post: ");
                         int idPost= sc.nextInt();
                        
-
+                        try{
                         //Llamamos a la función.
                         boolean mg=InsertarDatos.darLike(nombre, idPost);
 
@@ -105,10 +120,11 @@ public class App {
                         } else {
                             System.out.println("No se ha dado mg.");
                         }
-                    }
 
-                
-    
+                    } catch (Exception ex) {
+                        System.err.println("Ha ocurrido un error.");
+                    }
+                    }   
                 }
 
                 break;
@@ -125,11 +141,22 @@ public class App {
 					sc.nextLine();
 				    System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
 				    String res= sc.nextLine();
+                    sc.nextLine();
+				    System.out.println("Introduzca el dato original:");
+				    String datoOG= sc.nextLine();
+                    sc.nextLine();
+				    System.out.println("Introduzca el dato nuevo:");
+				    String datoN= sc.nextLine();
 
-                    //Llamamos a la función 
-                    ModificarDatos.modificaUsuario(res);
-					
-					
+                    try {
+
+                        //Llamamos a la función 
+                        ModificarDatos.modificaUsuario(res, datoOG, datoN);
+                        
+                    } catch (Exception e) {
+                        
+                        System.err.println("Ha ocurrido un error.");
+                    }
 				} else if (respuesta.equalsIgnoreCase("post")) {
 
                     sc.nextLine();
@@ -139,10 +166,16 @@ public class App {
                     sc.nextLine();
 				    System.out.println("Introduzca el nuevo user:");
 				    String userName= sc.nextLine();
-					
-                    //LLamamos a la función.
-                    ModificarDatos.modificaPost(idPost, userName);
-                
+
+                    try {
+
+                        //Llamamos a la función 
+                        ModificarDatos.modificaPost(idPost, userName);
+                        
+                    } catch (Exception e) {
+                        
+                        System.err.println("Ha ocurrido un error.");
+                    }
                 }	
                 
                 break;
@@ -151,23 +184,45 @@ public class App {
 
             case 4: {
                 sc.nextLine();
-                System.out.println("Introduzca el dato a listar:");
+                System.out.println("Introduzca la tabla a listar:");
 				String respuesta= sc.nextLine();
 
                 switch (respuesta) {
                     case "usuarios": {
                         
-                        //Llamar a la función de listar usuarios.
-                        ListarDatos.listaUsuarios();
+                        try {
+                             //Llamar a la función de listar usuarios.
+                            ListarDatos.listaUsuarios();
+                            
+                        } catch (Exception e) {
+                            System.err.println("Ha ocurrido un error.");
+                        }
+                        
                     }
                     case "posts": {
-                        //Llamar a la función de listar posts.
-                        ListarDatos.listaPosts();
+
+                        try {
+                            
+
+                           //Llamar a la función de listar posts.
+                            ListarDatos.listaPosts();
+                           
+                       } catch (Exception e) {
+                           System.err.println("Ha ocurrido un error.");
+                       }
+                        
                     }
 
                     case "likes": {
-                        //Llamar a la función de listar likes.
-                        ListarDatos.listaLikes();
+
+                        try {
+                             //Llamar a la función de listar likes.
+                            ListarDatos.listaLikes();
+                           
+                       } catch (Exception e) {
+                           System.err.println("Ha ocurrido un error.");
+                       }
+                      
                     }                      
                 }
 
@@ -186,7 +241,14 @@ public class App {
                         System.out.println("Indique el user a borrar:");
                         String userName= sc.nextLine();
 
-                        BorrarDatos.borraUsuario(userName);
+                        try {
+                            BorrarDatos.borraUsuario(userName);
+                            
+                        } catch (Exception e) {
+                            System.err.println("Ha ocurrido un error.");
+                        }
+
+                        
                        
                     }
                     case "post": {
@@ -194,7 +256,12 @@ public class App {
                         System.out.println("Indique el id del post a borrar:");
                         int idPost= sc.nextInt();
 
-                        BorrarDatos.borraPost(idPost);
+                        try {
+                            BorrarDatos.borraPost(idPost);
+                            
+                        } catch (Exception e) {
+                            System.err.println("Ha ocurrido un error.");
+                        }
 
                     }
 
@@ -207,7 +274,12 @@ public class App {
                         System.out.println("Indique el user:");
                         String userName= sc.nextLine();
 
-                        BorrarDatos.borraLike(idPost, userName);
+                        try {
+                            BorrarDatos.borraLike(idPost, userName);
+                            
+                        } catch (Exception e) {
+                            System.err.println("Ha ocurrido un error.");
+                        }                      
                     }                      
                 }
 
