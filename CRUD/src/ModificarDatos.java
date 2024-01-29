@@ -15,7 +15,7 @@ public class ModificarDatos {
                     //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
-                    String sql = "update Usuarios set nombre="+datoN+" where nombre="+datoOG;
+                    String sql = "update Usuarios set nombre='"+datoN+"' where nombre='"+datoOG+"';";
                     
                     stmt.executeUpdate(sql);
 
@@ -44,7 +44,7 @@ public class ModificarDatos {
                     //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
-                    String sql = "update Usuarios set apellidos="+datoN+" where apellidos="+datoOG;
+                    String sql = "update Usuarios set apellidos='"+datoN+"' where apellidos='"+datoOG+"';";
                     
                     stmt.executeUpdate(sql);
 
@@ -75,7 +75,7 @@ public class ModificarDatos {
                     //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
-                    String sql = "update Usuarios set userName="+datoN+" where userName="+datoOG;
+                    String sql = "update Usuarios set userName='"+datoN+"' where userName='"+datoOG+"';";
                     
                     stmt.executeUpdate(sql);
 
@@ -136,7 +136,7 @@ public class ModificarDatos {
                     //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
-                    String sql = "update Usuarios set email="+datoN+" where email="+datoOG;
+                    String sql = "update Usuarios set email='"+datoN+"' where email='"+datoOG+"';";
                     
                     stmt.executeUpdate(sql);
 
@@ -169,8 +169,8 @@ public class ModificarDatos {
                     //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
-                    String sql = "update Posts set username="+username+" where idPost="+idPost;
-                    String sql2="update Posts set updated_at=NOW() where idPost="+idPost;
+                    String sql = "update Posts set username='"+username+"' where idPost="+idPost+";";
+                    String sql2="update Posts set updated_at=NOW() where idPost="+idPost+";";
                     
                     stmt.executeUpdate(sql);
                     stmt.executeUpdate(sql2);

@@ -16,7 +16,7 @@ public class InsertarDatos {
             stmt = conn.createStatement();
             //Paso 3. Definimos la sentencia de crear una nueva base de datos
             String sql = "insert into Usuarios (nombre, apellidos, username, password, email) values"
-            + "("+nombre+","+apellidos+","+userName+","+password+","+email+")"; 
+            + "( '"+nombre+"', '"+apellidos+"', '"+userName+"', '"+password+"', '"+email+"');"; 
             
             userCreado=true;
             //Paso 4. Ejecutar la sentencia
@@ -49,15 +49,24 @@ public class InsertarDatos {
             //Paso 2. Creamos un nuevo objeto con la conexión
             stmt = conn.createStatement();
             //Buscamos el id del usuario según ese username.
-            PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username="+userName);
-            ResultSet resIdUsuario= s.executeQuery();
+            PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username=?;");
+            s.setString(1, userName);
+            ResultSet rs=s.executeQuery();
 
-            String sql = "insert into Posts (idUsuario, created_at, updated_at) values"
-            + "("+resIdUsuario.getInt("idUsuario")+", now(), now())"; 
+            if (rs.next()) {
+                System.out.println(rs.getInt("idUsuario"));
             
-            postCreado=true;
-            //Paso 4. Ejecutar la sentencia
+                String sql = "insert into Posts (idUsuario, created_at, updated_at) values"
+                + "("+rs.getInt("idUsuario")+", now(), now());"; 
+
+                 //Paso 4. Ejecutar la sentencia
             stmt.executeUpdate(sql);
+                postCreado=true;
+                
+            }
+           
+           
+           
         }catch(SQLException se){
             //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
             se.printStackTrace();
@@ -79,6 +88,7 @@ public class InsertarDatos {
 
         Connection conn = null;
         Statement stmt = null;
+        //TODO: hay que controlar que el mismo usuario no de like dos veces al mismo post.
 
         try {
             //Paso 1.Previamente habremos realizado la conexión
@@ -86,15 +96,21 @@ public class InsertarDatos {
             //Paso 2. Creamos un nuevo objeto con la conexión
             stmt = conn.createStatement();
             //Buscamos el id del usuario según ese username.
-            PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username="+userName);
-            ResultSet resIdUsuario= s.executeQuery();
+             PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username=?;");
+             s.setString(1, userName);
+             ResultSet rs=s.executeQuery();
+ 
+             if (rs.next()) {
+             
+                String sql = "insert into Likes (idUsuario, idPost) values"
+                + "("+rs.getInt("idUsuario")+","+idPost+");"; 
+ 
+                //Paso 4. Ejecutar la sentencia
+                stmt.executeUpdate(sql);
 
-            String sql = "insert into Likes (idUsuario, idPost) values"
-            + "("+resIdUsuario.getInt("idUsuario")+", idPost)"; 
+                mg=true;              
+             }        
             
-            mg=true;
-            //Paso 4. Ejecutar la sentencia
-            stmt.executeUpdate(sql);
         }catch(SQLException se){
             //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
             se.printStackTrace();
@@ -106,13 +122,7 @@ public class InsertarDatos {
             stmt.close();
             conn.close();
         }
-
-         
-          
-
           return mg;
-
-
     }
 
     

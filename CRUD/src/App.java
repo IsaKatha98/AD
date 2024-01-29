@@ -1,6 +1,7 @@
 
 
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class App {
@@ -36,17 +37,15 @@ public class App {
                     //llamamos a la función de crear tablas.
                     CrearTablas.crear();
 
-                } catch (Exception ex1) {
-
-                    System.err.println("Las tablas ya han sido creadas anteriormente.");
-
+                } catch (SQLException e) {
+                    e.getMessage();
                 }
                 break;
             }
 			
 			
 			case 2: {
-				
+				sc.nextLine();
 				System.out.println("Indique tipo de dato quiere insertar o si quiere dar like:");
                 var data= sc.nextLine();
 
@@ -64,7 +63,7 @@ public class App {
                         System.out.println("Email: ");
                         String email= sc.nextLine(); //TODO: tenemos que comprobar que es un correo???
 
-                        try{
+                    try{
                         //Llamamos a la función.
                         boolean userCreado= InsertarDatos.insertaUsuarios(nombre, apellidos, userName, password, email);
 
@@ -78,12 +77,11 @@ public class App {
                         System.err.println("Ha ocurrido un error.");
                     }
 
-
+                    break;
                     }
 
                     case "post": {
 
-                        //TODO: pedimos el nombre y buscamos en la lista el idUsuario asociado o cómo????
                         System.out.println("Introduzca el nombre del usuario: ");
                         String userName= sc.nextLine();
 
@@ -100,6 +98,7 @@ public class App {
                     } catch (Exception ex) {
                         System.err.println("Ha ocurrido un error.");
                     }
+                    break;
 
                     }
 
@@ -124,7 +123,8 @@ public class App {
                     } catch (Exception ex) {
                         System.err.println("Ha ocurrido un error.");
                     }
-                    }   
+                    }  
+                    break; 
                 }
 
                 break;
@@ -136,14 +136,14 @@ public class App {
 				System.out.println("Introduzca si quiere modificar un usuario o un post:");
 				String respuesta= sc.nextLine();
 				
-				if (respuesta.equalsIgnoreCase("usuario")) {
+                if (respuesta.equalsIgnoreCase("usuario")) {
 					
-					sc.nextLine();
 				    System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
 				    String res= sc.nextLine();
                     sc.nextLine();
 				    System.out.println("Introduzca el dato original:");
 				    String datoOG= sc.nextLine();
+                    //TDOO.aquí hay que comprobar que el dato existe.
                     sc.nextLine();
 				    System.out.println("Introduzca el dato nuevo:");
 				    String datoN= sc.nextLine();
@@ -304,7 +304,7 @@ public class App {
 			
 			System.out.println();
 
-		} while (opcion != 7);
+		} while (opcion != 6);
 
         //Cerramos el escáner.
         sc.close();
