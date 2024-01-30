@@ -123,8 +123,14 @@ public class App {
                     } catch (Exception ex) {
                         System.err.println("Ha ocurrido un error.");
                     }
-                    }  
                     break; 
+                    } 
+                    
+                    default:{
+                        System.out.println("Esa opción no existe");
+                        break;
+                    }
+                   
                 }
 
                 break;
@@ -140,11 +146,11 @@ public class App {
 					
 				    System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
 				    String res= sc.nextLine();
-                    sc.nextLine();
+                    
 				    System.out.println("Introduzca el dato original:");
 				    String datoOG= sc.nextLine();
                     //TDOO.aquí hay que comprobar que el dato existe.
-                    sc.nextLine();
+                   
 				    System.out.println("Introduzca el dato nuevo:");
 				    String datoN= sc.nextLine();
 
@@ -176,6 +182,11 @@ public class App {
                         
                         System.err.println("Ha ocurrido un error.");
                     }
+                } else {
+                    
+                        System.out.println("Esa opción no existe");
+                       
+                    
                 }	
                 
                 break;

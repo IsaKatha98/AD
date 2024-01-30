@@ -17,7 +17,15 @@ public class ModificarDatos {
                     
                     String sql = "update Usuarios set nombre='"+datoN+"' where nombre='"+datoOG+"';";
                     
-                    stmt.executeUpdate(sql);
+                    //comprobamos que se ejecuta correctamente.
+                    if (stmt.executeUpdate(sql)==1) {
+
+                        System.out.println("El usuario se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado un usuario con ese nombre.");
+                    }
 
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
@@ -30,7 +38,7 @@ public class ModificarDatos {
                     stmt.close();
                     conn.close();
                 }                
-               
+               break;
             }
 
             case "apellidos":{
@@ -46,7 +54,14 @@ public class ModificarDatos {
                     
                     String sql = "update Usuarios set apellidos='"+datoN+"' where apellidos='"+datoOG+"';";
                     
-                    stmt.executeUpdate(sql);
+                    if (stmt.executeUpdate(sql)==1) {
+
+                        System.out.println("El usuario se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado un usuario con ese nombre.");
+                    }
 
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
@@ -59,7 +74,7 @@ public class ModificarDatos {
                     stmt.close();
                     conn.close();
                 }                
-               
+                break;
 
                
             }
@@ -77,7 +92,14 @@ public class ModificarDatos {
                     
                     String sql = "update Usuarios set userName='"+datoN+"' where userName='"+datoOG+"';";
                     
-                    stmt.executeUpdate(sql);
+                    if (stmt.executeUpdate(sql)==1) {
+
+                        System.out.println("El usuario se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado un usuario con ese nombre.");
+                    }
 
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
@@ -90,7 +112,7 @@ public class ModificarDatos {
                     stmt.close();
                     conn.close();
                 }                
-               
+                break;
                
 
             }
@@ -108,7 +130,14 @@ public class ModificarDatos {
                     
                     String sql = "update Usuarios set password="+datoN+" where password="+datoOG;
                     
-                    stmt.executeUpdate(sql);
+                    if (stmt.executeUpdate(sql)==1) {
+
+                        System.out.println("El usuario se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado un usuario con ese nombre.");
+                    }
 
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
@@ -121,7 +150,7 @@ public class ModificarDatos {
                     stmt.close();
                     conn.close();
                 }                
-               
+                break;
                 
             }
 
@@ -138,7 +167,14 @@ public class ModificarDatos {
                     
                     String sql = "update Usuarios set email='"+datoN+"' where email='"+datoOG+"';";
                     
-                    stmt.executeUpdate(sql);
+                    if (stmt.executeUpdate(sql)==1) {
+
+                        System.out.println("El usuario se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado un usuario con ese nombre.");
+                    }
 
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
@@ -151,7 +187,7 @@ public class ModificarDatos {
                     stmt.close();
                     conn.close();
                 }                
-               
+                break;
                
             }
         }   
@@ -172,9 +208,16 @@ public class ModificarDatos {
                     String sql = "update Posts set username='"+username+"' where idPost="+idPost+";";
                     String sql2="update Posts set updated_at=NOW() where idPost="+idPost+";";
                     
-                    stmt.executeUpdate(sql);
-                    stmt.executeUpdate(sql2);
+                    if (stmt.executeUpdate(sql)==1) {
+                        stmt.executeUpdate(sql2);
 
+                        System.out.println("El post se ha modificado correctamente.");
+                    
+                    } else {
+
+                        System.out.println("No se ha encontrado ningún post con ese nombre.");
+                    }
+                    
                 }catch(SQLException se){
                     //Gestionamos los posibles errores que puedan surgir durante la ejecucion de la insercion
                     se.printStackTrace();
