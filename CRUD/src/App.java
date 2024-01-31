@@ -1,6 +1,3 @@
-
-
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -28,8 +25,7 @@ public class App {
 
 			// Hacemos un switch.
 			switch (opcion) {
-            
-            //TODO: el usuario debe poder crear tablas.
+            //Opción de crear tablas.
             case 1:{
 
                 try{
@@ -43,7 +39,7 @@ public class App {
                 break;
             }
 			
-			
+			//opción de insertar datos
 			case 2: {
 				sc.nextLine();
 				System.out.println("Indique tipo de dato quiere insertar o si quiere dar like:");
@@ -61,7 +57,7 @@ public class App {
                         System.out.println("La contraseña: ");
                         String password= sc.nextLine();
                         System.out.println("Email: ");
-                        String email= sc.nextLine(); //TODO: tenemos que comprobar que es un correo???
+                        String email= sc.nextLine(); 
 
                     try{
                         //Llamamos a la función.
@@ -135,7 +131,7 @@ public class App {
 
                 break;
 			}
-
+            //opción de modificar datos
 			case 3: {
 				
 				sc.nextLine();
@@ -192,7 +188,7 @@ public class App {
                 break;
 				
 			}
-
+            //opción de listar datos
             case 4: {
                 sc.nextLine();
                 System.out.println("Introduzca la tabla a listar:");
@@ -208,19 +204,20 @@ public class App {
                         } catch (Exception e) {
                             System.err.println("Ha ocurrido un error.");
                         }
+                        break;
                         
                     }
                     case "posts": {
 
                         try {
-                            
-
                            //Llamar a la función de listar posts.
                             ListarDatos.listaPosts();
                            
                        } catch (Exception e) {
                            System.err.println("Ha ocurrido un error.");
                        }
+
+                       break;
                         
                     }
 
@@ -234,13 +231,14 @@ public class App {
                            System.err.println("Ha ocurrido un error.");
                        }
                       
-                    }                      
+                    } 
+                    break;                     
                 }
 
                 break;
 
             }
-
+            //opción de borrar datos
             case 5: {
                 sc.nextLine();
                 System.out.println("Introduzca el dato a borrar:");
@@ -257,10 +255,7 @@ public class App {
                             
                         } catch (Exception e) {
                             System.err.println("Ha ocurrido un error.");
-                        }
-
-                        
-                       
+                        }                   
                     }
                     case "post": {
                         sc.nextLine();
@@ -296,16 +291,13 @@ public class App {
 
                 break;
             }
-
+            //opción de salir del CRUD
             case 6: {
                
                 // salir
 				System.out.println("Ha salido del programa.");
                 break;
             }
-
-
-
 			default: {
 
 				System.err.println("Opción introducida incorrecta");

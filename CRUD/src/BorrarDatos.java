@@ -1,12 +1,17 @@
 import java.sql.*;
 
 public class BorrarDatos {
+
+    /**
+     * Método que borra un registro de la tabla Usuarios.
+     * @param userName
+     * @throws SQLException
+     */
     public static void borraUsuario(String userName) throws SQLException {
 
         Connection conn = null;
     
         try {
-            
             conn = Conection.establishConection();
                       
             PreparedStatement s =conn.prepareStatement("delete from Usuarios  where username=?;");
@@ -25,12 +30,16 @@ public class BorrarDatos {
             //Gestionamos los posibles errores
             e.printStackTrace();
         }finally{
-                    
             conn.close();
         }                
                
     }
 
+    /**
+     * Método que borra un registro de la tabla Posts.
+     * @param idPost
+     * @throws SQLException
+     */
     public static void borraPost (int idPost) throws SQLException {
 
     Connection conn = null;
@@ -52,24 +61,26 @@ public class BorrarDatos {
         //Gestionamos los posibles errores
         e.printStackTrace();
     }finally{
-                
         stmt.close();
         conn.close();
     }                
 
     }
-    
+
+    /**
+     * Método que borra un registro de la tabla Likes.
+     * @param idPost
+     * @param userName
+     * @throws SQLException
+     */
     public static void borraLike(int idPost, String userName) throws SQLException {
 
         Connection conn = null;
-        Statement stmt = null;
     
         try {
             
             conn = Conection.establishConection();
-            stmt = conn.createStatement();
 
-            //buscamos el id del Usuario.
              //Buscamos el id del usuario según ese username.
              PreparedStatement s= conn.prepareStatement("select idUsuario from Usuarios where username=?;");
              s.setString(1, userName);
@@ -94,8 +105,8 @@ public class BorrarDatos {
                 s2.setInt(1, idPost);                
                 s2.setInt(2, idUsuario);
 
-                //Si nos da null, significa que no hay ningún registro de este tipo
-                if (s2.executeQuery()==null) {
+                //Si nos da 0, significa que no hay ningún registro de este tipo
+                if (s2.executeUpdate()==0) {
 
                     System.out.println("Este post no tiene ningún mg del usuario "+ userName);             
                          
@@ -107,7 +118,6 @@ public class BorrarDatos {
                     s3.setInt(1, idPost);
                     s3.setInt(2, idUsuario);
 
-                    //TODO.Esto así no funciona
                     if (!s3.executeQuery().equals(null)) {
 
                         System.out.println("Se borrado el mg.");
@@ -127,12 +137,7 @@ public class BorrarDatos {
             e.printStackTrace();
         }finally{
                     
-            stmt.close();
             conn.close();
         }                
-    
-
-        
-    
     }
 }

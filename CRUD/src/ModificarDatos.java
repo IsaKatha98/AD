@@ -2,6 +2,14 @@ import java.sql.*;
 
 public class ModificarDatos {
 
+    /**
+     * Método que modifica un usuario.
+     * Solo se puede modificar un tipo de dato.
+     * @param res
+     * @param datoOG
+     * @param datoN
+     * @throws SQLException
+     */
     public static void modificaUsuario (String res, String datoOG, String datoN) throws SQLException {
         switch (res){
             case "nombre": {
@@ -10,9 +18,8 @@ public class ModificarDatos {
                 Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
+                   
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Usuarios set nombre='"+datoN+"' where nombre='"+datoOG+"';";
@@ -34,7 +41,7 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
@@ -47,9 +54,7 @@ public class ModificarDatos {
                 Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Usuarios set apellidos='"+datoN+"' where apellidos='"+datoOG+"';";
@@ -70,13 +75,11 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
-                break;
-
-               
+                break;              
             }
 
             case "nombre de usuario":{
@@ -85,9 +88,7 @@ public class ModificarDatos {
                 Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Usuarios set userName='"+datoN+"' where userName='"+datoOG+"';";
@@ -108,13 +109,11 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
                 break;
-               
-
             }
 
             case "contraseña":{
@@ -123,9 +122,7 @@ public class ModificarDatos {
                 Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Usuarios set password="+datoN+" where password="+datoOG;
@@ -146,12 +143,11 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
                 break;
-                
             }
 
             case "correo": {
@@ -160,9 +156,7 @@ public class ModificarDatos {
                 Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Usuarios set email='"+datoN+"' where email='"+datoOG+"';";
@@ -183,26 +177,29 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
                 break;
-               
             }
         }   
         
     }
 
+    /**
+     * Método que modifica el usuario que ha generado un post.
+     * @param idPost
+     * @param username
+     * @throws SQLException
+     */
     public static void modificaPost(int idPost, String username ) throws SQLException{
 
         Connection conn = null;
         Statement stmt = null;
 
                 try {
-                    //Paso 1.Previamente habremos realizado la conexión
                     conn = Conection.establishConection();
-                    //Paso 2. Creamos un nuevo objeto con la conexión
                     stmt = conn.createStatement();
                     
                     String sql = "update Posts set username='"+username+"' where idPost="+idPost+";";
@@ -225,13 +222,10 @@ public class ModificarDatos {
                     //Gestionamos los posibles errores
                     e.printStackTrace();
                 }finally{
-                    //Paso 5. Cerrar el objeto en uso y la conexión
+                    //Cerrar el objeto en uso y la conexión
                     stmt.close();
                     conn.close();
                 }                
-               
-
-
     }
     
 }

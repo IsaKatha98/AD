@@ -5,6 +5,7 @@
         "lib/**/*.jar",
         "c:\\Users\\ikloerzer\\Desktop\\mysql-connector-j-8.2.0\\mysql-connector-j-8.2.0.jar",
         "c:\\Users\\IsaK\\Desktop\\FP\\2º\\AD\\JDBC\\mysql-connector-j-8.3.0\\mysql-connector-j-8.3.0.jar",
-        "c:\\Users\\Isa K\\Desktop\\Conector\\mysql-connector-j-8.3.0\\mysql-connector-j-8.3.0.jar"
+        "c:\\Users\\Isa K\\Desktop\\Conector\\mysql-connector-j-8.3.0\\mysql-connector-j-8.3.0.jar",
+        "c:\\Users\\ikloerzer\\Downloads\\sqljdbc_12.4.2.0_enu\\sqljdbc_12.4\\enu\\jars\\mssql-jdbc-12.4.2.jre11.jar"
     ]
 }

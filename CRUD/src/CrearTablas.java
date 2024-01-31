@@ -1,19 +1,19 @@
 import java.sql.*;
-
-
 public class CrearTablas {
 
+    /**
+     * Método que crea las tablas de la base de datos.
+     * @throws Exception
+     */
     public static void crear() throws Exception {
 
         Connection conn = null;
         Statement stmt = null;
 
         try {
-            //Paso 1.Previamente habremos realizado la conexión
-            conn = Conection.establishConection();
-            //Paso 2. Creamos un nuevo objeto con la conexión
+            conn=Conection.establishConection();
             stmt = conn.createStatement();
-            //Paso 3. Definimos la sentencia de crear una nueva base de datos
+            
             String sqlUsuarios = "create table Usuarios ("
                 +"idUsuario int auto_increment primary key,"
                 +"nombre varchar(45),"
@@ -36,8 +36,6 @@ public class CrearTablas {
                 +"foreign key (idUsuario) references Usuarios(idUsuario) on delete cascade,"
                 +"foreign key (idPost) references Posts(idPost) on delete cascade);";
 
-                
-            //Paso 4. Ejecutar la sentencia
             stmt.executeUpdate(sqlUsuarios);
             stmt.executeUpdate(sqlPosts);
             stmt.executeUpdate(sqlLikes);
@@ -50,7 +48,7 @@ public class CrearTablas {
             //Gestionamos los posibles errores
             e.printStackTrace();
         }finally{
-            //Paso 5. Cerrar el objeto en uso y la conexión
+            //Cerrar el objeto en uso y la conexión
             stmt.close();
             conn.close();
         }
