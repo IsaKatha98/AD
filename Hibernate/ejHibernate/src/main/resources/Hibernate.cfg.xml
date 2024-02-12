@@ -5,9 +5,9 @@
     <session-factory>
         <!-- Configuración de la conexión JDBC -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://dns11036.phdns11.es:3306/ad2223_latuya</property>
-        <property name="connection.username">ad2223_tu</property>
-        <property name="connection.password">tupassword</property>
+        <property name="connection.url">jdbc:mysql://dns11036.phdns11.es:3306/ad2324_isabel_loerzer</property>
+        <property name="connection.username">isabel.loerzer</property>
+        <property name="connection.password">12345</property>
         <!-- Configuración del  pool de conexiones JDBC... utilizamos el pool de test integrado -->
         <property name="connection.pool_size">1</property>
         <!--Seleccionamos el dialecto SQL-->
