@@ -5,7 +5,7 @@
     <session-factory>
         <!-- Configuración de la conexión JDBC -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://dns11036.phdns11.es:3306/ad2324_isabel_loerzer</property>
+        <property name="connection.url">jdbc:mysql://dns11036.phdns11.es:3306/ad2324_isabelcrud</property>
         <property name="connection.username">isabel.loerzer</property>
         <property name="connection.password">12345</property>
         <!-- Configuración del  pool de conexiones JDBC... utilizamos el pool de test integrado -->
@@ -17,8 +17,7 @@
         <!-- Establece el contexto de la sesion-->
         <property name="current_session_context_class">thread</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping class="Alumnado"/>
-        <mapping class="Direccion"/>
-        <mapping class="Email"/>
+        <mapping class="Usuarios2"/>
+        
     </session-factory>
 </hibernate-configuration>
