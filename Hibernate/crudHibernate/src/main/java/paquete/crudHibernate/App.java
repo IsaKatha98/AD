@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class App {
 	
-	 private static AccesoBD instancia;
+	 private static AccesoBD instancia= new AccesoBD( );
 
 	    public static void main(String[] args) throws Exception {
 	        
@@ -31,19 +31,17 @@ public class App {
 				switch (opcion) {
 	            //Opción de crear tablas.
 	            case 1:{
-	            	
-	            	 sc.nextLine();
-	            	 System.out.println("Indique el id del usuario:");
-	                 int id= sc.nextInt();
-
-	                try{
-
-	                	mostrarDatos(id);
-
-	                } catch (Exception e) {
-	                    e.getMessage();
-	                }
-	                break;
+	            	  sc.nextLine();
+		                System.out.println("Lista de usuarios:");
+		                
+		                try {
+	                        //Llamar a la función de listar usuarios.
+	                       Functions.listarUsuarios();
+	                       
+	                   } catch (Exception e) {
+	                       System.err.println("Ha ocurrido un error.");
+	                   }
+	                   break;
 	            }
 				
 				//opción de insertar datos
@@ -63,12 +61,13 @@ public class App {
                       String email= sc.nextLine(); 
 
                   try{
+                	  
                      
-                	  insertaUsuario(nombre, apellidos, userName, password, email);
+                	  Functions.insertaUsuario(nombre, apellidos, userName, password, email);
                 	  
                   }catch (Exception e){
                 	  
-                	  System.out.println("Ha ocurrido un error.");
+                	  System.out.println("Ha ocurrido un error: "+ e);
                 	  
                   }
 	                break;
@@ -82,47 +81,67 @@ public class App {
 	                 int id= sc.nextInt();
 	                 
 	                 
-					System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
-				    
-				    
-				    sc.nextLine();
-				    
-				    String res= sc.nextLine();
-				    
-				    System.out.println("Introduzca el dato nuevo:");
-				    String datoN= sc.nextLine();
-                   
-				
-
-                    try {
-                    	
-                       
-
-                        //Llamamos a la función 
-                        modificaUsuario(id, res,  datoN);
-                        
-                    } catch (Exception e) {
-                        
-                        System.err.println("Ha ocurrido un error:"+e);
-			 
-	                }	
-	                
+	                 boolean idExiste= Functions.confirmaID(id);
+	                 
+	               //Comproabmos que el id existe
+	                 if (!idExiste) {
+	                	 
+	                	 System.out.println("Este id no existe");
+	                	 
+	                 } else {
+	                	 
+	                	 System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
+	 				    
+	 				    
+	 				    sc.nextLine();
+	 				    
+	 				    String res= sc.nextLine();
+	 				    
+	 				    System.out.println("Introduzca el dato nuevo:");
+	 				    String datoN= sc.nextLine();
+	 				    
+	 				   try {
+	                    	
+	                        //Llamamos a la función 
+	                        Functions.modificaUsuario(id, res,  datoN);
+	                        
+	                    } catch (Exception e) {
+	                        
+	                        System.err.println("Ha ocurrido un error:"+e);
+				 
+		                }	
+	                	 
+	                 }
+	               	                
 	                break;
 					
 				}
-	            //opción de listar datos
+	            //opción de mostrar datos
 	            case 4: {
-	                sc.nextLine();
-	                System.out.println("Lista de usuarios:");
-	                
-	                try {
-                        //Llamar a la función de listar usuarios.
-                       //ListarDatos.listaUsuarios();
-                       
-                   } catch (Exception e) {
-                       System.err.println("Ha ocurrido un error.");
-                   }
-                   break;
+	            	
+	            	 sc.nextLine();
+	            	 System.out.println("Indique el id del usuario:");
+	                 int id= sc.nextInt();
+	                 
+	               
+	                 boolean idExiste= Functions.confirmaID(id);
+	                 
+	               //Comproabmos que el id existe
+	                 if (!idExiste) {
+	                	 
+	                	 System.out.println("Este id no existe");
+	                	 
+	                 } else {
+			                try{
+		
+			                	Functions.mostrarDatos(id);
+		
+			                } catch (Exception e) {
+			                    e.getMessage();
+			                }
+	                 }
+	                break;
+	              
 	            }
 	            //opción de borrar datos
 	            case 5: {
@@ -130,13 +149,24 @@ public class App {
 	                System.out.println("Va a borrar un usuario");
                     System.out.println("Indique el usuario a borrar:");
                     int id= sc.nextInt();
+                    
+                    boolean idExiste= Functions.confirmaID(id);
+	                 
 
-                    try {
-                        borraUsuario(id);
-                        
-                    } catch (Exception e) {
-                        System.err.println("Ha ocurrido un error.");
-                    }                   
+ 	               //Comproabmos que el id existe
+ 	                 if (!idExiste) {
+ 	                	 
+ 	                	 System.out.println("Este id no existe");
+ 	                	 
+ 	                 } else {
+
+		                    try {
+		                        Functions.borraUsuario(id);
+		                        
+		                    } catch (Exception e) {
+		                        System.err.println("Ha ocurrido un error.");
+		                    }    
+ 	                 }
 
 	                break;
 	            }
@@ -163,104 +193,6 @@ public class App {
 	        sc.close();
 	        
 	    }
-	    
-	    public static  void mostrarDatos (int id) {
-
-	        try {
-	        	
-	        	//Instanciamos la conexión.
-	        	instancia= new AccesoBD();
-	        	
-	        	//Abrimos la conexión
-	        	instancia.abrir();
-	        	
-	        	//Llamamos a la función
-	        	instancia.mostrarDatos(id);
-	        	
-	        }catch(Exception e){
-	            //Gestionamos los posibles errores
-	            e.printStackTrace();
-	        }finally{
-	            //Cerrar la conexión
-	            instancia.cerrar();
-	        }
-
-	         
-	    }
-	    
-	    public static  void insertaUsuario (String nombre, String apellidos, String userName, String password, String email) throws Exception {
-
-	        try {
-	        	
-	        	//creamos el usuario a insertar.
-	        	//Ponemos 0 como id por defecto.
-	        	Usuarios2 usuarioNuevo= new Usuarios2(0, nombre, apellidos, userName, password, email);
-	        	
-	        	//Instanciamos la conexión.
-	        	instancia= new AccesoBD();
-	        	
-	        	//Abrimos la conexión
-	        	instancia.abrir();
-	        	
-	        	//Llamamos a la función
-	        	instancia.guardar(usuarioNuevo);
-	        	
-	        	System.out.println("Se ha guardado un el usuario: "+nombre);
-	        	
-	        }catch(Exception e){
-	            //Gestionamos los posibles errores
-	            e.printStackTrace();
-	        }finally{
-	            //Cerrar la conexión
-	            instancia.cerrar();
-	        }
-	         
-	    }
-
-	    public static void modificaUsuario (int id, String res, String datoN ) {
-	    	
-	    	 try {
-		        
-		        	//Instanciamos la conexión.
-		        	instancia= new AccesoBD();
-		        	
-		        	//Abrimos la conexión
-		        	instancia.abrir();
-		        	
-		        	//TODO: en teoría hay que crear una función por cada elemento a eliminar.
-		        	
-		        	//Llamamos a la función
-		        	instancia.modificar(id, res, datoN);
-		        			        	
-		        }catch(Exception e){
-		            //Gestionamos los posibles errores
-		            e.printStackTrace();
-		        }finally{
-		            //Cerrar la conexión
-		            instancia.cerrar();
-		        }
-	    	
-	    }
-	    
-	    public static void borraUsuario(int id) {
-	    	
-	    	 try {
-		        	
-		        	//Instanciamos la conexión.
-		        	instancia= new AccesoBD();
-		        	
-		        	//Abrimos la conexión
-		        	instancia.abrir();
-		        	
-		        	//Llamamos a la función
-		        	instancia.eliminar(id);
-		        	
-		        }catch(Exception e){
-		            //Gestionamos los posibles errores
-		            e.printStackTrace();
-		        }finally{
-		            //Cerrar la conexión
-		            instancia.cerrar();
-		        }
-	    }
 }
+	    
+	   

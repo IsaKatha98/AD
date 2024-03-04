@@ -1,11 +1,15 @@
 package paquete.crudHibernate;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 
 public class AccesoBD {
 
@@ -53,7 +57,7 @@ public class AccesoBD {
 	        }
 	    }
 
-	    public void guardar(Object cosa) {
+	    public void guardar(Object cosa) throws Exception {
 	    	 try {
 	    		 sesion.save(cosa);
 		         transaction.commit();
@@ -68,6 +72,7 @@ public class AccesoBD {
 	    	Usuarios2 usuario=sesion.get(Usuarios2.class, id);
 	    	
 	    	//mostramos los datos
+	    	
 	    	System.out.println("Nombre: "+usuario.getNombre());
 	    	System.out.println("Apellidos: "+usuario.getApellidos());
 	    	System.out.println("Nombre de usuario: "+usuario.getUsername());
@@ -76,34 +81,33 @@ public class AccesoBD {
 	    	
 	    }
 	    
+	    public List<Usuarios2> listarUsuarios() throws Exception{
+	    	
+	    	List<Usuarios2> usuarios = null;
+	    	try {
+	    		
+	    		String sql = "SELECT * FROM Usuarios2";
+	            Query query = sesion.createNativeQuery(sql, Usuarios2.class);
+
+	            usuarios = query.getResultList();
+
+	           
+	    	} catch (Exception e) {
+	    		 transaction.rollback();
+	    	}
+	    	return usuarios;
+	    }
+	    
 	    public void modificar (int id, String res, String datoN) throws Exception {
 	    	
 	    	 try {
 	    		 Usuarios2 usuario=sesion.get(Usuarios2.class, id);
 	    		 
-	    		 switch (res) {
-	    		 
-	    		 case "nombre": {
-	    			 usuario.setNombre(datoN); 
-	    		 }
-	    		 
-	    		 case "apellidos":{
-	    			 usuario.setApellidos(datoN);
-	    		 }
-	    		 case "nombre de usuario":{
-	    			 usuario.setUsername(datoN);
-	    		 }
-	    		 case "contraseña":{
-	    			 usuario.setPassword(datoN);
-	    		 }
-	    		 case "correo":{
-	    			 usuario.setEmail(datoN);
-	    		 }
-	    		 
-	    		 }
-	    		 
-	    		 //hacemos el update.
-	    		 sesion.update(usuario);
+	    		// Utiliza una consulta HQL para actualizar el usuario
+	    	        Query query = sesion.createQuery("UPDATE Usuarios2 SET"+res+"="+datoN+"WHERE id ="+id);
+	    	       
+	    	        query.executeUpdate();
+	    		
 	    		 
 		         transaction.commit();
 		         
@@ -127,4 +131,26 @@ public class AccesoBD {
 	     }
 	    	
 	    }
+	    
+	    public boolean compruebaId(int id) throws Exception {
+	    	 
+	    	Usuarios2 usuario = null;
+	    	boolean idExiste= false;
+
+	    	    try {
+	    	        // Obtiene el usuario por su ID usando JPA
+	    	        usuario = sesion.find(Usuarios2.class, id);
+	    	        
+	    	        if (usuario!=null) {
+	    	        	  idExiste= true;
+
+	    	        }
+	    	      
+	    	    } catch (Exception e) {
+	    	        e.printStackTrace();
+	    	    }
+	    	    
+	    	    return idExiste;
+	    }
+	    
 }

@@ -20,4 +20,8 @@
     <fullyQualifiedTypeName name="hibernate.CRUDUsuario.Accesobd"/>
     <fullyQualifiedTypeName name="org.hibernate.mapping.MetadataSource"/>
     <fullyQualifiedTypeName name="org.hibernate.boot.MetadataSources"/>
+    <fullyQualifiedTypeName name="com.mysql.cj.Query"/>
+    <fullyQualifiedTypeName name="org.hibernate.Query"/>
+    <fullyQualifiedTypeName name="org.hibernate.query.Query"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
 </qualifiedTypeNameHistroy>

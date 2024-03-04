@@ -6,10 +6,10 @@ public class Menu {
 
 		System.out.println(
 				 "\n===================" 
-                 + "\n1. Mostrar datos de un usuario" 
+                 + "\n1. Listar usuarios" 
                  + "\n2. Insertar usuario"
                  +"\n3. Modificar usuario"
-                 +"\n4. Listar usuarios"
+                 +"\n4. Mostrar datos de un usuario"
                  +"\n5. Borrar usuario"
                  +"\n6. Salir");
 
