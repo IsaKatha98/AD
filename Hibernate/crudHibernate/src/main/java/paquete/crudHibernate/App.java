@@ -91,10 +91,7 @@ public class App {
 	                 } else {
 	                	 
 	                	 System.out.println("¿Quiere modificar el nombre, los apellidos, el nombre de usuario, la contraseña o el correo? ");
-	 				    
-	 				    
-	 				    sc.nextLine();
-	 				    
+	                	 sc.nextLine();
 	 				    String res= sc.nextLine();
 	 				    
 	 				    System.out.println("Introduzca el dato nuevo:");

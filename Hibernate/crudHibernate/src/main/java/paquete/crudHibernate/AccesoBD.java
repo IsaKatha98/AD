@@ -100,22 +100,28 @@ public class AccesoBD {
 	    
 	    public void modificar (int id, String res, String datoN) throws Exception {
 	    	
-	    	 try {
-	    		 Usuarios2 usuario=sesion.get(Usuarios2.class, id);
-	    		 
-	    		// Utiliza una consulta HQL para actualizar el usuario
-	    	        Query query = sesion.createQuery("UPDATE Usuarios2 SET"+res+"="+datoN+"WHERE id ="+id);
-	    	       
-	    	        query.executeUpdate();
-	    		
-	    		 
-		         transaction.commit();
-		         
-		        System.out.println("Este usuario ha sido modificado correctamente.");
-		         
-		     }catch(Exception e){
-		         transaction.rollback();
-		     }
+	    	try {
+	            
+
+	            // Utiliza una consulta HQL para actualizar el usuario
+	            Query query = sesion.createQuery("UPDATE Usuarios2 SET " + res + " = :datoN WHERE id = :id");
+	            query.setParameter("datoN", datoN);
+	            query.setParameter("id", id);
+	            int rowsAffected = query.executeUpdate();
+
+	            // Comprueba el número de filas afectadas para confirmar la actualización
+	            if (rowsAffected > 0) {
+	                System.out.println("Este usuario ha sido modificado correctamente.");
+	            } else {
+	                System.out.println("Ha ocurrido un error.");
+	            }
+
+	           
+
+	        } catch (Exception e) {
+	          
+	            throw e; // Vuelve a lanzar la excepción para que el método que llamó pueda manejarla
+	        }
 	    }
 	    
 	    
